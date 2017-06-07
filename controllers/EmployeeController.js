@@ -25,7 +25,7 @@ employeeController.show = function(req, res){
 };
 
 employeeController.create = function(req, res){
-  res.render('../views/employee/create');
+  res.redirect('/employee');
 };
 
 employeeController.save = function(req, res){
@@ -37,13 +37,13 @@ employeeController.save = function(req, res){
       res.render('../views/employee/create')
     } else {
       console.log("Employee Created")
-      res.redirect('/employee/show/' + employee.id);
+      res.redirect('/employee');
     }
   });
 };
 
 employeeController.edit = function(req, res){
-  Employee.findOne({_id: req.params.id}).exec(function(req, employee){
+  Employee.findOne({_id: req.params.id}).exec(function(err, employee){
     if(err){
       console.log("Error: ", err);
     } else {
@@ -58,7 +58,7 @@ employeeController.update = function(req, res){
       console.log("Error: ", err)
       res.render('../views/employee/edit', {employee: req.body})
     }
-    res.redirect('/employees/show' + employee._id)
+    res.redirect('/employees')
   });
 };
 
@@ -67,8 +67,8 @@ employeeController.delete = function(req, res){
     if(err){
     console.log("Error: ", err)
     } else {
-      Console.log("Employee deleted!")
-      res.redirect('/employee')
+      console.log("Employee deleted!")
+      res.redirect('/employees')
     }
   });
 };
